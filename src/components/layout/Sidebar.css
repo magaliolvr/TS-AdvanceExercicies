@@ -1,0 +1,288 @@
+.sidebar {
+  width: 280px;
+  background: white;
+  border-right: 1px solid #e9ecef;
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+  transition: width 0.3s ease;
+  flex-shrink: 0;
+}
+
+.sidebar.collapsed {
+  width: 80px;
+}
+
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px 0;
+}
+
+.sidebar-header {
+  padding: 0 20px 20px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.collapse-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  color: #6c757d;
+  transition: all 0.2s ease;
+}
+
+.collapse-toggle:hover {
+  background-color: #f8f9fa;
+  color: #495057;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  transition: transform 0.3s ease;
+}
+
+.hamburger.collapsed {
+  transform: rotate(90deg);
+}
+
+.hamburger span {
+  width: 16px;
+  height: 2px;
+  background-color: currentColor;
+  border-radius: 1px;
+  transition: all 0.3s ease;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 20px 0;
+}
+
+.nav-section {
+  margin-bottom: 30px;
+}
+
+.nav-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 20px 12px;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar.collapsed .nav-section-title {
+  opacity: 0;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  color: #495057;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.nav-item:hover {
+  background-color: #f8f9fa;
+  color: #007bff;
+}
+
+.nav-item.active {
+  background-color: #e3f2fd;
+  color: #007bff;
+  border-right: 3px solid #007bff;
+}
+
+.nav-item.primary {
+  background-color: #007bff;
+  color: white;
+  margin: 0 20px;
+  border-radius: 6px;
+}
+
+.nav-item.primary:hover {
+  background-color: #0056b3;
+}
+
+.nav-label {
+  font-size: 14px;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar.collapsed .nav-label {
+  opacity: 0;
+}
+
+.nav-badge {
+  background-color: #007bff;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 16px;
+  text-align: center;
+  margin-left: auto;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar.collapsed .nav-badge {
+  opacity: 0;
+}
+
+.quick-stats {
+  padding: 0 20px;
+}
+
+.quick-stat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f3f4;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar.collapsed .quick-stat {
+  opacity: 0;
+}
+
+.quick-stat:last-child {
+  border-bottom: none;
+}
+
+.quick-stat.warning {
+  color: #ffc107;
+}
+
+.quick-stat.danger {
+  color: #dc3545;
+}
+
+.quick-stat.info {
+  color: #17a2b8;
+}
+
+.quick-stat-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.quick-stat-value {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.quick-stat-label {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+.sidebar-footer {
+  padding: 20px;
+  border-top: 1px solid #e9ecef;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar.collapsed .sidebar-footer {
+  opacity: 0;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #495057;
+}
+
+.user-role {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 64px;
+    left: -280px;
+    z-index: 1000;
+    transition: left 0.3s ease;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .sidebar.collapsed {
+    width: 280px;
+  }
+
+  .sidebar.collapsed .nav-section-title,
+  .sidebar.collapsed .nav-label,
+  .sidebar.collapsed .nav-badge,
+  .sidebar.collapsed .quick-stat,
+  .sidebar.collapsed .sidebar-footer {
+    opacity: 1;
+  }
+}
+
+/* Scrollbar styling for sidebar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+} 
