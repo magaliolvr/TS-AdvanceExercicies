@@ -1,0 +1,106 @@
+import { TaskPriority, TaskStatus, NotificationType, ThemeMode } from '../types';
+
+export const TASK_PRIORITIES: Record<string, TaskPriority> = {
+  LOW: 'low',
+  MEDIUM: 'medium',
+  HIGH: 'high',
+  URGENT: 'urgent'
+} as const;
+
+export const TASK_STATUSES: Record<string, TaskStatus> = {
+  PENDING: 'pending',
+  IN_PROGRESS: 'in-progress',
+  COMPLETED: 'completed',
+  CANCELLED: 'cancelled'
+} as const;
+
+export const PRIORITY_LABELS: Record<TaskPriority, string> = {
+  [TASK_PRIORITIES.LOW]: 'Low',
+  [TASK_PRIORITIES.MEDIUM]: 'Medium',
+  [TASK_PRIORITIES.HIGH]: 'High',
+  [TASK_PRIORITIES.URGENT]: 'Urgent'
+};
+
+export const STATUS_LABELS: Record<TaskStatus, string> = {
+  [TASK_STATUSES.PENDING]: 'Pending',
+  [TASK_STATUSES.IN_PROGRESS]: 'In Progress',
+  [TASK_STATUSES.COMPLETED]: 'Completed',
+  [TASK_STATUSES.CANCELLED]: 'Cancelled'
+};
+
+export const PRIORITY_COLORS: Record<TaskPriority, string> = {
+  [TASK_PRIORITIES.LOW]: 'badge-low',
+  [TASK_PRIORITIES.MEDIUM]: 'badge-medium',
+  [TASK_PRIORITIES.HIGH]: 'badge-high',
+  [TASK_PRIORITIES.URGENT]: 'badge-urgent'
+};
+
+export const STATUS_COLORS: Record<TaskStatus, string> = {
+  [TASK_STATUSES.PENDING]: 'badge-pending',
+  [TASK_STATUSES.IN_PROGRESS]: 'badge-in-progress',
+  [TASK_STATUSES.COMPLETED]: 'badge-completed',
+  [TASK_STATUSES.CANCELLED]: 'badge-cancelled'
+};
+
+export const FILTER_OPTIONS = {
+  ALL: 'all',
+  PENDING: 'pending',
+  IN_PROGRESS: 'in-progress',
+  COMPLETED: 'completed'
+} as const;
+
+export const SORT_OPTIONS = {
+  CREATED_DATE: 'createdAt',
+  DUE_DATE: 'dueDate',
+  PRIORITY: 'priority',
+  TITLE: 'title',
+  STATUS: 'status'
+} as const;
+
+export const API_ENDPOINTS = {
+  TASKS: '/api/tasks',
+  USERS: '/api/users',
+  CATEGORIES: '/api/categories',
+  ANALYTICS: '/api/analytics'
+} as const;
+
+export const LOCAL_STORAGE_KEYS = {
+  TASKS: 'taskManager_tasks',
+  USER_PREFERENCES: 'taskManager_userPreferences',
+  THEME: 'taskManager_theme',
+  SETTINGS: 'taskManager_settings'
+} as const;
+
+export const DEFAULT_TASK = {
+  id: '',
+  title: '',
+  description: '',
+  priority: TASK_PRIORITIES.MEDIUM,
+  status: TASK_STATUSES.PENDING,
+  dueDate: '',
+  category: '',
+  assignedTo: '',
+  createdAt: '',
+  updatedAt: '',
+  tags: []
+};
+
+export const VALIDATION_RULES = {
+  TITLE_MIN_LENGTH: 3,
+  TITLE_MAX_LENGTH: 100,
+  DESCRIPTION_MAX_LENGTH: 500,
+  TAG_MAX_LENGTH: 20,
+  MAX_TAGS: 5
+} as const;
+
+export const NOTIFICATION_TYPES: Record<string, NotificationType> = {
+  SUCCESS: 'success',
+  ERROR: 'error',
+  WARNING: 'warning',
+  INFO: 'info'
+} as const;
+
+export const THEME_MODES: Record<string, ThemeMode> = {
+  LIGHT: 'light',
+  DARK: 'dark'
+} as const; 
