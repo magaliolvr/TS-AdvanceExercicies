@@ -1,42 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { 
-  Plus, 
-  Clock, 
-  CheckCircle, 
-  AlertTriangle, 
-  TrendingUp,
-  Calendar,
-  BarChart3
-} from 'lucide-react';
-import { useTaskContext } from '../../context/TaskContext';
-import { formatDate, isOverdue, isDueSoon } from '../../utils/helpers';
-import { TASK_STATUSES, TASK_PRIORITIES } from '../../utils/constants';
-import './Dashboard.css';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Plus, Clock, CheckCircle, AlertTriangle, TrendingUp, Calendar, BarChart3 } from "lucide-react";
+import { useTaskContext } from "../../context/TaskContext";
+import { formatDate, isOverdue, isDueSoon } from "../../utils/helper";
+import { TASK_STATUSES, TASK_PRIORITIES } from "../../utils/constants";
+import "./Dashboard.css";
 
 const Dashboard = () => {
-  const { 
-    tasks, 
-    filteredTasks, 
-    stats, 
-    loading, 
-    error,
-    setFilters 
-  } = useTaskContext();
-  
+  const { tasks, filteredTasks, stats, loading, error, setFilters } = useTaskContext();
+
   const [recentTasks, setRecentTasks] = useState([]);
   const [upcomingTasks, setUpcomingTasks] = useState([]);
 
   useEffect(() => {
     // Get recent tasks (last 5 created)
-    const recent = [...tasks]
-      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-      .slice(0, 5);
+    const recent = [...tasks].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 5);
     setRecentTasks(recent);
 
     // Get upcoming tasks (due in next 7 days)
     const upcoming = tasks
-      .filter(task => {
+      .filter((task) => {
         if (!task.dueDate || task.status === TASK_STATUSES.COMPLETED) return false;
         const dueDate = new Date(task.dueDate);
         const nextWeek = new Date();
@@ -51,41 +34,41 @@ const Dashboard = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case TASK_STATUSES.COMPLETED:
-        return 'success';
+        return "success";
       case TASK_STATUSES.IN_PROGRESS:
-        return 'warning';
+        return "warning";
       case TASK_STATUSES.PENDING:
-        return 'info';
+        return "info";
       default:
-        return 'secondary';
+        return "secondary";
     }
   };
 
   const getPriorityColor = (priority) => {
     switch (priority) {
       case TASK_PRIORITIES.HIGH:
-        return 'danger';
+        return "danger";
       case TASK_PRIORITIES.MEDIUM:
-        return 'warning';
+        return "warning";
       case TASK_PRIORITIES.LOW:
-        return 'success';
+        return "success";
       default:
-        return 'secondary';
+        return "secondary";
     }
   };
 
   const getTaskStatus = (task) => {
-    if (task.status === TASK_STATUSES.COMPLETED) return 'Completed';
-    if (isOverdue(task.dueDate)) return 'Overdue';
-    if (isDueSoon(task.dueDate)) return 'Due Soon';
-    return 'On Track';
+    if (task.status === TASK_STATUSES.COMPLETED) return "Completed";
+    if (isOverdue(task.dueDate)) return "Overdue";
+    if (isDueSoon(task.dueDate)) return "Due Soon";
+    return "On Track";
   };
 
   const getTaskStatusColor = (task) => {
-    if (task.status === TASK_STATUSES.COMPLETED) return 'success';
-    if (isOverdue(task.dueDate)) return 'danger';
-    if (isDueSoon(task.dueDate)) return 'warning';
-    return 'info';
+    if (task.status === TASK_STATUSES.COMPLETED) return "success";
+    if (isOverdue(task.dueDate)) return "danger";
+    if (isDueSoon(task.dueDate)) return "warning";
+    return "info";
   };
 
   const handleQuickFilter = (filter) => {
@@ -165,24 +148,15 @@ const Dashboard = () => {
       <div className="quick-actions">
         <h2>Quick Actions</h2>
         <div className="action-buttons">
-          <button 
-            className="action-btn"
-            onClick={() => handleQuickFilter({ status: TASK_STATUSES.PENDING })}
-          >
+          <button className="action-btn" onClick={() => handleQuickFilter({ status: TASK_STATUSES.PENDING })}>
             <Clock size={20} />
             View Pending
           </button>
-          <button 
-            className="action-btn"
-            onClick={() => handleQuickFilter({ priority: TASK_PRIORITIES.HIGH })}
-          >
+          <button className="action-btn" onClick={() => handleQuickFilter({ priority: TASK_PRIORITIES.HIGH })}>
             <AlertTriangle size={20} />
             High Priority
           </button>
-          <button 
-            className="action-btn"
-            onClick={() => handleQuickFilter({ status: TASK_STATUSES.COMPLETED })}
-          >
+          <button className="action-btn" onClick={() => handleQuickFilter({ status: TASK_STATUSES.COMPLETED })}>
             <CheckCircle size={20} />
             Completed
           </button>
@@ -198,9 +172,11 @@ const Dashboard = () => {
         <div className="dashboard-section">
           <div className="section-header">
             <h2>Recent Tasks</h2>
-            <Link to="/tasks" className="view-all">View All</Link>
+            <Link to="/tasks" className="view-all">
+              View All
+            </Link>
           </div>
-          
+
           {recentTasks.length > 0 ? (
             <div className="task-list">
               {recentTasks.map((task) => (
@@ -209,12 +185,8 @@ const Dashboard = () => {
                     <h4 className="task-title">{task.title}</h4>
                     <p className="task-description">{task.description}</p>
                     <div className="task-meta">
-                      <span className={`task-status ${getStatusColor(task.status)}`}>
-                        {task.status}
-                      </span>
-                      <span className={`task-priority ${getPriorityColor(task.priority)}`}>
-                        {task.priority}
-                      </span>
+                      <span className={`task-status ${getStatusColor(task.status)}`}>{task.status}</span>
+                      <span className={`task-priority ${getPriorityColor(task.priority)}`}>{task.priority}</span>
                       {task.dueDate && (
                         <span className="task-due-date">
                           <Calendar size={14} />
@@ -243,9 +215,11 @@ const Dashboard = () => {
         <div className="dashboard-section">
           <div className="section-header">
             <h2>Upcoming Tasks</h2>
-            <Link to="/tasks" className="view-all">View All</Link>
+            <Link to="/tasks" className="view-all">
+              View All
+            </Link>
           </div>
-          
+
           {upcomingTasks.length > 0 ? (
             <div className="task-list">
               {upcomingTasks.map((task) => (
@@ -254,12 +228,8 @@ const Dashboard = () => {
                     <h4 className="task-title">{task.title}</h4>
                     <p className="task-description">{task.description}</p>
                     <div className="task-meta">
-                      <span className={`task-status ${getTaskStatusColor(task)}`}>
-                        {getTaskStatus(task)}
-                      </span>
-                      <span className={`task-priority ${getPriorityColor(task.priority)}`}>
-                        {task.priority}
-                      </span>
+                      <span className={`task-status ${getTaskStatusColor(task)}`}>{getTaskStatus(task)}</span>
+                      <span className={`task-priority ${getPriorityColor(task.priority)}`}>{task.priority}</span>
                       {task.dueDate && (
                         <span className="task-due-date">
                           <Calendar size={14} />
@@ -285,4 +255,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard; 
+export default Dashboard;

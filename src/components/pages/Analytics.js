@@ -1,23 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  BarChart3, 
-  TrendingUp, 
-  Calendar, 
-  Clock, 
-  CheckCircle, 
-  AlertTriangle,
-  PieChart,
-  Activity
-} from 'lucide-react';
-import { useTaskContext } from '../../context/TaskContext';
-import { formatDate } from '../../utils/helpers';
-import { TASK_STATUSES, TASK_PRIORITIES } from '../../utils/constants';
-import './Analytics.css';
+import React, { useState, useEffect } from "react";
+import { BarChart3, TrendingUp, Calendar, Clock, CheckCircle, AlertTriangle, PieChart, Activity } from "lucide-react";
+import { useTaskContext } from "../../context/TaskContext";
+import { formatDate } from "../../utils/helper";
+import { TASK_STATUSES, TASK_PRIORITIES } from "../../utils/constants";
+import "./Analytics.css";
 
 const Analytics = () => {
   const { tasks, stats, loading } = useTaskContext();
-  const [timeRange, setTimeRange] = useState('week');
-  const [selectedMetric, setSelectedMetric] = useState('status');
+  const [timeRange, setTimeRange] = useState("week");
+  const [selectedMetric, setSelectedMetric] = useState("status");
 
   const getCompletionRate = () => {
     if (stats.total === 0) return 0;
@@ -31,36 +22,34 @@ const Analytics = () => {
 
   const getTasksByStatus = () => {
     return [
-      { name: 'Completed', value: stats.completed, color: '#28a745' },
-      { name: 'In Progress', value: stats.inProgress, color: '#ffc107' },
-      { name: 'Pending', value: stats.pending, color: '#17a2b8' }
+      { name: "Completed", value: stats.completed, color: "#28a745" },
+      { name: "In Progress", value: stats.inProgress, color: "#ffc107" },
+      { name: "Pending", value: stats.pending, color: "#17a2b8" },
     ];
   };
 
   const getTasksByPriority = () => {
     return [
-      { name: 'High', value: stats.highPriority, color: '#dc3545' },
-      { name: 'Medium', value: stats.mediumPriority, color: '#ffc107' },
-      { name: 'Low', value: stats.lowPriority, color: '#28a745' }
+      { name: "High", value: stats.highPriority, color: "#dc3545" },
+      { name: "Medium", value: stats.mediumPriority, color: "#ffc107" },
+      { name: "Low", value: stats.lowPriority, color: "#28a745" },
     ];
   };
 
   const getRecentActivity = () => {
-    return tasks
-      .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-      .slice(0, 10);
+    return tasks.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)).slice(0, 10);
   };
 
   const getProductivityTrend = () => {
     // Mock data for productivity trend
     return [
-      { date: 'Mon', completed: 5, created: 8 },
-      { date: 'Tue', completed: 7, created: 6 },
-      { date: 'Wed', completed: 4, created: 9 },
-      { date: 'Thu', completed: 9, created: 5 },
-      { date: 'Fri', completed: 6, created: 7 },
-      { date: 'Sat', completed: 3, created: 4 },
-      { date: 'Sun', completed: 2, created: 3 }
+      { date: "Mon", completed: 5, created: 8 },
+      { date: "Tue", completed: 7, created: 6 },
+      { date: "Wed", completed: 4, created: 9 },
+      { date: "Thu", completed: 9, created: 5 },
+      { date: "Fri", completed: 6, created: 7 },
+      { date: "Sat", completed: 3, created: 4 },
+      { date: "Sun", completed: 2, created: 3 },
     ];
   };
 
@@ -77,11 +66,7 @@ const Analytics = () => {
       <div className="analytics-header">
         <h1>Analytics</h1>
         <div className="analytics-controls">
-          <select 
-            value={timeRange} 
-            onChange={(e) => setTimeRange(e.target.value)}
-            className="time-range-select"
-          >
+          <select value={timeRange} onChange={(e) => setTimeRange(e.target.value)} className="time-range-select">
             <option value="week">Last Week</option>
             <option value="month">Last Month</option>
             <option value="quarter">Last Quarter</option>
@@ -143,34 +128,28 @@ const Analytics = () => {
           <div className="chart-header">
             <h2>Task Distribution</h2>
             <div className="chart-controls">
-              <button 
-                className={`chart-btn ${selectedMetric === 'status' ? 'active' : ''}`}
-                onClick={() => setSelectedMetric('status')}
-              >
+              <button className={`chart-btn ${selectedMetric === "status" ? "active" : ""}`} onClick={() => setSelectedMetric("status")}>
                 <PieChart size={16} />
                 By Status
               </button>
-              <button 
-                className={`chart-btn ${selectedMetric === 'priority' ? 'active' : ''}`}
-                onClick={() => setSelectedMetric('priority')}
-              >
+              <button className={`chart-btn ${selectedMetric === "priority" ? "active" : ""}`} onClick={() => setSelectedMetric("priority")}>
                 <BarChart3 size={16} />
                 By Priority
               </button>
             </div>
           </div>
-          
+
           <div className="chart-content">
-            {selectedMetric === 'status' ? (
+            {selectedMetric === "status" ? (
               <div className="pie-chart">
                 {getTasksByStatus().map((item, index) => (
                   <div key={index} className="chart-item">
                     <div className="chart-bar">
-                      <div 
+                      <div
                         className="bar-fill"
-                        style={{ 
-                          width: `${(item.value / Math.max(...getTasksByStatus().map(i => i.value))) * 100}%`,
-                          backgroundColor: item.color
+                        style={{
+                          width: `${(item.value / Math.max(...getTasksByStatus().map((i) => i.value))) * 100}%`,
+                          backgroundColor: item.color,
                         }}
                       ></div>
                     </div>
@@ -187,11 +166,11 @@ const Analytics = () => {
                 {getTasksByPriority().map((item, index) => (
                   <div key={index} className="chart-item">
                     <div className="chart-bar">
-                      <div 
+                      <div
                         className="bar-fill"
-                        style={{ 
-                          width: `${(item.value / Math.max(...getTasksByPriority().map(i => i.value))) * 100}%`,
-                          backgroundColor: item.color
+                        style={{
+                          width: `${(item.value / Math.max(...getTasksByPriority().map((i) => i.value))) * 100}%`,
+                          backgroundColor: item.color,
                         }}
                       ></div>
                     </div>
@@ -217,16 +196,8 @@ const Analytics = () => {
                 <div key={index} className="trend-day">
                   <div className="day-label">{day.date}</div>
                   <div className="day-bars">
-                    <div 
-                      className="completed-bar"
-                      style={{ height: `${(day.completed / 10) * 100}%` }}
-                      title={`${day.completed} completed`}
-                    ></div>
-                    <div 
-                      className="created-bar"
-                      style={{ height: `${(day.created / 10) * 100}%` }}
-                      title={`${day.created} created`}
-                    ></div>
+                    <div className="completed-bar" style={{ height: `${(day.completed / 10) * 100}%` }} title={`${day.completed} completed`}></div>
+                    <div className="created-bar" style={{ height: `${(day.created / 10) * 100}%` }} title={`${day.created} created`}></div>
                   </div>
                 </div>
               ))}
@@ -251,18 +222,10 @@ const Analytics = () => {
         <div className="activity-list">
           {getRecentActivity().map((task, index) => (
             <div key={index} className="activity-item">
-              <div className="activity-icon">
-                {task.status === TASK_STATUSES.COMPLETED ? (
-                  <CheckCircle size={16} />
-                ) : task.status === TASK_STATUSES.IN_PROGRESS ? (
-                  <Clock size={16} />
-                ) : (
-                  <AlertTriangle size={16} />
-                )}
-              </div>
+              <div className="activity-icon">{task.status === TASK_STATUSES.COMPLETED ? <CheckCircle size={16} /> : task.status === TASK_STATUSES.IN_PROGRESS ? <Clock size={16} /> : <AlertTriangle size={16} />}</div>
               <div className="activity-content">
                 <p className="activity-text">
-                  <strong>{task.title}</strong> was {task.status === TASK_STATUSES.COMPLETED ? 'completed' : 'updated'}
+                  <strong>{task.title}</strong> was {task.status === TASK_STATUSES.COMPLETED ? "completed" : "updated"}
                 </p>
                 <span className="activity-time">{formatDate(task.updatedAt)}</span>
               </div>
@@ -274,4 +237,4 @@ const Analytics = () => {
   );
 };
 
-export default Analytics; 
+export default Analytics;

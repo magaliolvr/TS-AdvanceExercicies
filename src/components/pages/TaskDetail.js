@@ -1,29 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { 
-  Edit, 
-  Trash2, 
-  ArrowLeft, 
-  Calendar, 
-  User, 
-  Tag, 
-  Clock,
-  CheckCircle,
-  AlertTriangle,
-  FileText
-} from 'lucide-react';
-import { useTaskContext } from '../../context/TaskContext';
-import { formatDate, formatDateTime, isOverdue, isDueSoon } from '../../utils/helpers';
-import { 
-  TASK_STATUSES, 
-  TASK_PRIORITIES, 
-  PRIORITY_LABELS, 
-  STATUS_LABELS,
-  PRIORITY_COLORS,
-  STATUS_COLORS
-} from '../../utils/constants';
-import toast from 'react-hot-toast';
-import './TaskDetail.css';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { Edit, Trash2, ArrowLeft, Calendar, User, Tag, Clock, CheckCircle, AlertTriangle, FileText } from "lucide-react";
+import { useTaskContext } from "../../context/TaskContext";
+import { formatDate, formatDateTime, isOverdue, isDueSoon } from "../../utils/helper";
+import { TASK_STATUSES, TASK_PRIORITIES, PRIORITY_LABELS, STATUS_LABELS, PRIORITY_COLORS, STATUS_COLORS } from "../../utils/constants";
+import toast from "react-hot-toast";
+import "./TaskDetail.css";
 
 const TaskDetail = () => {
   const { id } = useParams();
@@ -32,12 +14,12 @@ const TaskDetail = () => {
   const [task, setTask] = useState(null);
 
   useEffect(() => {
-    const foundTask = tasks.find(t => t.id === id);
+    const foundTask = tasks.find((t) => t.id === id);
     if (foundTask) {
       setTask(foundTask);
     } else {
-      toast.error('Task not found');
-      navigate('/tasks');
+      toast.error("Task not found");
+      navigate("/tasks");
     }
   }, [id, tasks, navigate]);
 
@@ -46,34 +28,34 @@ const TaskDetail = () => {
       await updateTask(id, { status: newStatus });
       toast.success(`Task marked as ${STATUS_LABELS[newStatus]}`);
     } catch (error) {
-      toast.error('Failed to update task status');
+      toast.error("Failed to update task status");
     }
   };
 
   const handleDelete = async () => {
-    if (window.confirm('Are you sure you want to delete this task?')) {
+    if (window.confirm("Are you sure you want to delete this task?")) {
       try {
         await deleteTask(id);
-        toast.success('Task deleted successfully');
-        navigate('/tasks');
+        toast.success("Task deleted successfully");
+        navigate("/tasks");
       } catch (error) {
-        toast.error('Failed to delete task');
+        toast.error("Failed to delete task");
       }
     }
   };
 
   const getTaskStatus = () => {
-    if (task.status === TASK_STATUSES.COMPLETED) return 'Completed';
-    if (isOverdue(task.dueDate)) return 'Overdue';
-    if (isDueSoon(task.dueDate)) return 'Due Soon';
-    return 'On Track';
+    if (task.status === TASK_STATUSES.COMPLETED) return "Completed";
+    if (isOverdue(task.dueDate)) return "Overdue";
+    if (isDueSoon(task.dueDate)) return "Due Soon";
+    return "On Track";
   };
 
   const getTaskStatusColor = () => {
-    if (task.status === TASK_STATUSES.COMPLETED) return 'success';
-    if (isOverdue(task.dueDate)) return 'danger';
-    if (isDueSoon(task.dueDate)) return 'warning';
-    return 'info';
+    if (task.status === TASK_STATUSES.COMPLETED) return "success";
+    if (isOverdue(task.dueDate)) return "danger";
+    if (isDueSoon(task.dueDate)) return "warning";
+    return "info";
   };
 
   if (loading) {
@@ -107,10 +89,7 @@ const TaskDetail = () => {
             <Edit size={16} />
             Edit
           </Link>
-          <button 
-            className="btn btn-danger"
-            onClick={handleDelete}
-          >
+          <button className="btn btn-danger" onClick={handleDelete}>
             <Trash2 size={16} />
             Delete
           </button>
@@ -121,19 +100,12 @@ const TaskDetail = () => {
         <div className="task-main-info">
           <div className="task-status-section">
             <div className="status-info">
-              <span className={`status-badge ${STATUS_COLORS[task.status]}`}>
-                {STATUS_LABELS[task.status]}
-              </span>
-              <span className={`task-status ${getTaskStatusColor()}`}>
-                {getTaskStatus()}
-              </span>
+              <span className={`status-badge ${STATUS_COLORS[task.status]}`}>{STATUS_LABELS[task.status]}</span>
+              <span className={`task-status ${getTaskStatusColor()}`}>{getTaskStatus()}</span>
             </div>
-            
+
             {task.status !== TASK_STATUSES.COMPLETED && (
-              <button
-                className="btn btn-success"
-                onClick={() => handleStatusChange(TASK_STATUSES.COMPLETED)}
-              >
+              <button className="btn btn-success" onClick={() => handleStatusChange(TASK_STATUSES.COMPLETED)}>
                 <CheckCircle size={16} />
                 Mark Complete
               </button>
@@ -154,9 +126,7 @@ const TaskDetail = () => {
               </div>
               <div className="meta-content">
                 <label>Due Date</label>
-                <span className={isOverdue(task.dueDate) ? 'overdue' : ''}>
-                  {task.dueDate ? formatDateTime(task.dueDate) : 'No due date'}
-                </span>
+                <span className={isOverdue(task.dueDate) ? "overdue" : ""}>{task.dueDate ? formatDateTime(task.dueDate) : "No due date"}</span>
               </div>
             </div>
 
@@ -166,9 +136,7 @@ const TaskDetail = () => {
               </div>
               <div className="meta-content">
                 <label>Priority</label>
-                <span className={`priority-badge ${PRIORITY_COLORS[task.priority]}`}>
-                  {PRIORITY_LABELS[task.priority]}
-                </span>
+                <span className={`priority-badge ${PRIORITY_COLORS[task.priority]}`}>{PRIORITY_LABELS[task.priority]}</span>
               </div>
             </div>
 
@@ -239,28 +207,19 @@ const TaskDetail = () => {
             <h3>Quick Actions</h3>
             <div className="action-buttons">
               {task.status === TASK_STATUSES.PENDING && (
-                <button
-                  className="btn btn-warning"
-                  onClick={() => handleStatusChange(TASK_STATUSES.IN_PROGRESS)}
-                >
+                <button className="btn btn-warning" onClick={() => handleStatusChange(TASK_STATUSES.IN_PROGRESS)}>
                   Start Task
                 </button>
               )}
-              
+
               {task.status === TASK_STATUSES.IN_PROGRESS && (
-                <button
-                  className="btn btn-success"
-                  onClick={() => handleStatusChange(TASK_STATUSES.COMPLETED)}
-                >
+                <button className="btn btn-success" onClick={() => handleStatusChange(TASK_STATUSES.COMPLETED)}>
                   Complete Task
                 </button>
               )}
-              
+
               {task.status === TASK_STATUSES.COMPLETED && (
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => handleStatusChange(TASK_STATUSES.PENDING)}
-                >
+                <button className="btn btn-secondary" onClick={() => handleStatusChange(TASK_STATUSES.PENDING)}>
                   Reopen Task
                 </button>
               )}
@@ -276,15 +235,11 @@ const TaskDetail = () => {
               </div>
               <div className="info-item">
                 <span className="info-label">Status:</span>
-                <span className={`info-value ${STATUS_COLORS[task.status]}`}>
-                  {STATUS_LABELS[task.status]}
-                </span>
+                <span className={`info-value ${STATUS_COLORS[task.status]}`}>{STATUS_LABELS[task.status]}</span>
               </div>
               <div className="info-item">
                 <span className="info-label">Priority:</span>
-                <span className={`info-value ${PRIORITY_COLORS[task.priority]}`}>
-                  {PRIORITY_LABELS[task.priority]}
-                </span>
+                <span className={`info-value ${PRIORITY_COLORS[task.priority]}`}>{PRIORITY_LABELS[task.priority]}</span>
               </div>
             </div>
           </div>
@@ -294,4 +249,4 @@ const TaskDetail = () => {
   );
 };
 
-export default TaskDetail; 
+export default TaskDetail;
