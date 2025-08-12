@@ -13,8 +13,8 @@ export interface Task {
   updatedAt: string;
 }
 
-export type TaskStatus = 'pending' | 'in-progress' | 'completed' | 'cancelled';
-export type TaskPriority = 'low' | 'medium' | 'high' | 'urgent';
+export type TaskStatus = "pending" | "in-progress" | "completed" | "cancelled";
+export type TaskPriority = "low" | "medium" | "high" | "urgent";
 
 // Filter and Sort Types
 export interface TaskFilters {
@@ -26,8 +26,8 @@ export interface TaskFilters {
   dueDate?: string;
 }
 
-export type SortOption = 'title' | 'dueDate' | 'priority' | 'status' | 'createdAt';
-export type SortDirection = 'asc' | 'desc';
+export type SortOption = "title" | "dueDate" | "priority" | "status" | "createdAt";
+export type SortDirection = "asc" | "desc";
 
 export interface SortConfig {
   field: SortOption;
@@ -55,20 +55,20 @@ export interface TaskStats {
 }
 
 export type TaskAction =
-  | { type: 'SET_LOADING'; payload: boolean }
-  | { type: 'SET_ERROR'; payload: string | null }
-  | { type: 'SET_TASKS'; payload: Task[] }
-  | { type: 'ADD_TASK'; payload: Task }
-  | { type: 'UPDATE_TASK'; payload: Task }
-  | { type: 'DELETE_TASK'; payload: string }
-  | { type: 'BULK_UPDATE'; payload: { taskIds: string[]; updates: Partial<Task> } }
-  | { type: 'BULK_DELETE'; payload: string[] }
-  | { type: 'SET_FILTERS'; payload: TaskFilters }
-  | { type: 'SET_SORT'; payload: SortConfig }
-  | { type: 'TOGGLE_TASK_SELECTION'; payload: string }
-  | { type: 'SET_SELECTED_TASKS'; payload: string[] }
-  | { type: 'CLEAR_SELECTED_TASKS' }
-  | { type: 'UPDATE_STATS' };
+  | { type: "SET_LOADING"; payload: boolean }
+  | { type: "SET_ERROR"; payload: string | null }
+  | { type: "SET_TASKS"; payload: Task[] }
+  | { type: "ADD_TASK"; payload: Task }
+  | { type: "UPDATE_TASK"; payload: Task }
+  | { type: "DELETE_TASK"; payload: string }
+  | { type: "BULK_UPDATE"; payload: { taskIds: string[]; updates: Partial<Task> } }
+  | { type: "BULK_DELETE"; payload: string[] }
+  | { type: "SET_FILTERS"; payload: TaskFilters }
+  | { type: "SET_SORT"; payload: SortConfig }
+  | { type: "TOGGLE_TASK_SELECTION"; payload: string }
+  | { type: "SET_SELECTED_TASKS"; payload: string[] }
+  | { type: "CLEAR_SELECTED_TASKS" }
+  | { type: "UPDATE_STATS" };
 
 // API Types
 export interface ApiResponse<T> {
@@ -103,7 +103,7 @@ export interface UserSettings {
     reminders: boolean;
   };
   appearance: {
-    theme: 'light' | 'dark';
+    theme: "light" | "dark";
     compactMode: boolean;
   };
 }
@@ -141,8 +141,8 @@ export interface SidebarProps {
 }
 
 // Utility Types
-export type NotificationType = 'success' | 'error' | 'warning' | 'info';
-export type ThemeMode = 'light' | 'dark';
+export type NotificationType = "success" | "error" | "warning" | "info";
+export type ThemeMode = "light" | "dark";
 
 // Constants Types
 export interface PriorityConfig {
@@ -161,7 +161,7 @@ export interface FilterOption {
   count?: number;
 }
 
-export interface SortOption {
+export interface SortOptionConfig {
   value: SortOption;
   label: string;
-} 
+}
