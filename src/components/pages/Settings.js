@@ -14,8 +14,8 @@ import './Settings.css';
 
 const Settings = () => {
   const { tasks } = useTaskContext();
-  const [activeTab, setActiveTab] = useState('profile');
-  const [settings, setSettings] = useState({
+  const [activeTab, setActiveTab] = useState<string>('profile');
+  const [settings, setSettings] = useState<Interface>({
     profile: {
       name: 'John Doe',
       email: 'john.doe@example.com',

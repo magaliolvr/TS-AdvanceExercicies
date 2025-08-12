@@ -18,19 +18,19 @@ export type TaskPriority = 'low' | 'medium' | 'high' | 'urgent';
 
 // Filter and Sort Types
 export interface TaskFilters {
-  status?: TaskStatus;
-  priority?: TaskPriority;
+  status?: TaskStatus | 'all';
+  priority?: TaskPriority | 'all';
   category?: string;
   assignedTo?: string;
   search?: string;
   dueDate?: string;
 }
 
-export type SortOption = 'title' | 'dueDate' | 'priority' | 'status' | 'createdAt';
+export type SortField = 'title' | 'dueDate' | 'priority' | 'status' | 'createdAt';
 export type SortDirection = 'asc' | 'desc';
 
 export interface SortConfig {
-  field: SortOption;
+  field: SortField;
   direction: SortDirection;
 }
 
@@ -68,7 +68,7 @@ export type TaskAction =
   | { type: 'TOGGLE_TASK_SELECTION'; payload: string }
   | { type: 'SET_SELECTED_TASKS'; payload: string[] }
   | { type: 'CLEAR_SELECTED_TASKS' }
-  | { type: 'UPDATE_STATS' };
+  | { type: 'UPDATE_STATS'; payload: TaskStats };
 
 // API Types
 export interface ApiResponse<T> {
@@ -161,7 +161,7 @@ export interface FilterOption {
   count?: number;
 }
 
-export interface SortOption {
-  value: SortOption;
+export interface SortOptionConfig {
+  value: SortField;
   label: string;
 } 

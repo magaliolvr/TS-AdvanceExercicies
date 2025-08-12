@@ -9,64 +9,65 @@ import {
   Calendar,
   Clock,
   AlertTriangle,
-  Code,
-  FileText,
-  GitCompare
+  LucideIcon
 } from 'lucide-react';
 import { useTaskContext } from '../../context/TaskContext';
 import './Sidebar.css';
 
-const Sidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+interface NavigationItem {
+  path: string;
+  icon: LucideIcon;
+  label: string;
+  badge: number | null;
+}
+
+interface QuickAction {
+  path: string;
+  icon: LucideIcon;
+  label: string;
+  variant: 'primary' | 'secondary';
+}
+
+interface QuickStat {
+  icon: LucideIcon;
+  label: string;
+  value: number;
+  color: 'warning' | 'danger' | 'info';
+}
+
+const Sidebar: React.FC = () => {
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
   const location = useLocation();
   const { stats } = useTaskContext();
 
-  const navigationItems = [
-    {
-      path: '/',
-      icon: Home,
-      label: 'Dashboard',
-      badge: null
-    },
-    {
-      path: '/welcome',
-      icon: Code,
-      label: 'Welcome (JS)',
-      badge: null
-    },
-    {
-      path: '/welcome-ts',
-      icon: FileText,
-      label: 'Welcome (TS)',
-      badge: null
-    },
-    {
-      path: '/comparison',
-      icon: GitCompare,
-      label: 'Comparison',
-      badge: null
-    },
-    {
-      path: '/tasks',
-      icon: CheckSquare,
-      label: 'Tasks',
-      badge: stats.total
-    },
-    {
-      path: '/analytics',
-      icon: BarChart3,
-      label: 'Analytics',
-      badge: null
-    },
-    {
-      path: '/settings',
-      icon: Settings,
-      label: 'Settings',
-      badge: null
-    }
-  ];
+  const navigationItems: NavigationItem[] = [
+		{
+			path: "/",
+			icon: Home,
+			label: "Dashboard",
+			badge: null,
+		},
+		{
+			path: "/tasks",
+			icon: CheckSquare,
+			label: "Tasks",
+			badge: stats.total,
+		},
+		{
+			path: "/analytics",
+			icon: BarChart3,
+			label: "Analytics",
+			badge: null,
+		},
+		{
+			path: "/settings",
+			icon: Settings,
+			label: "Settings",
+			badge: null,
+		},
+	];
 
-  const quickActions = [
+  const quickActions: QuickAction[] = [
     {
       path: '/tasks/new',
       icon: Plus,
@@ -75,7 +76,7 @@ const Sidebar = () => {
     }
   ];
 
-  const quickStats = [
+  const quickStats: QuickStat[] = [
     {
       icon: Clock,
       label: 'Pending',
@@ -96,14 +97,14 @@ const Sidebar = () => {
     }
   ];
 
-  const isActive = (path) => {
+  const isActive = (path: string): boolean => {
     if (path === '/') {
       return location.pathname === '/';
     }
     return location.pathname.startsWith(path);
   };
 
-  const toggleCollapse = () => {
+  const toggleCollapse = (): void => {
     setIsCollapsed(!isCollapsed);
   };
 

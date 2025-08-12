@@ -15,31 +15,31 @@ export const TASK_STATUSES: Record<string, TaskStatus> = {
 } as const;
 
 export const PRIORITY_LABELS: Record<TaskPriority, string> = {
-  [TASK_PRIORITIES.LOW]: 'Low',
-  [TASK_PRIORITIES.MEDIUM]: 'Medium',
-  [TASK_PRIORITIES.HIGH]: 'High',
-  [TASK_PRIORITIES.URGENT]: 'Urgent'
+  low: 'Low',
+  medium: 'Medium',
+  high: 'High',
+  urgent: 'Urgent'
 };
 
 export const STATUS_LABELS: Record<TaskStatus, string> = {
-  [TASK_STATUSES.PENDING]: 'Pending',
-  [TASK_STATUSES.IN_PROGRESS]: 'In Progress',
-  [TASK_STATUSES.COMPLETED]: 'Completed',
-  [TASK_STATUSES.CANCELLED]: 'Cancelled'
+  pending: 'Pending',
+  'in-progress': 'In Progress',
+  completed: 'Completed',
+  cancelled: 'Cancelled'
 };
 
 export const PRIORITY_COLORS: Record<TaskPriority, string> = {
-  [TASK_PRIORITIES.LOW]: 'badge-low',
-  [TASK_PRIORITIES.MEDIUM]: 'badge-medium',
-  [TASK_PRIORITIES.HIGH]: 'badge-high',
-  [TASK_PRIORITIES.URGENT]: 'badge-urgent'
+  low: 'badge-low',
+  medium: 'badge-medium',
+  high: 'badge-high',
+  urgent: 'badge-urgent'
 };
 
 export const STATUS_COLORS: Record<TaskStatus, string> = {
-  [TASK_STATUSES.PENDING]: 'badge-pending',
-  [TASK_STATUSES.IN_PROGRESS]: 'badge-in-progress',
-  [TASK_STATUSES.COMPLETED]: 'badge-completed',
-  [TASK_STATUSES.CANCELLED]: 'badge-cancelled'
+  pending: 'badge-pending',
+  'in-progress': 'badge-in-progress',
+  completed: 'badge-completed',
+  cancelled: 'badge-cancelled'
 };
 
 export const FILTER_OPTIONS = {

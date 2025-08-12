@@ -10,6 +10,9 @@ import TaskDetail from './components/pages/TaskDetail';
 import TaskForm from './components/pages/TaskForm';
 import Analytics from './components/pages/Analytics';
 import Settings from './components/pages/Settings';
+import Welcome from './components/pages/Welcome';
+import WelcomeTS from './components/pages/WelcomeTS';
+import Comparison from './components/pages/Comparison';
 import './App.css';
 
 function App() {
@@ -23,6 +26,9 @@ function App() {
             <main className="main-content">
               <Routes>
                 <Route path="/" element={<Dashboard />} />
+                <Route path="/welcome" element={<Welcome userName={10} courseName="teste" />} />
+                <Route path="/welcome-ts" element={<WelcomeTS />} />
+                <Route path="/comparison" element={<Comparison />} />
                 <Route path="/tasks" element={<TaskList />} />
                 <Route path="/tasks/new" element={<TaskForm />} />
                 <Route path="/tasks/:id" element={<TaskDetail />} />
