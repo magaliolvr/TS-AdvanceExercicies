@@ -4,6 +4,8 @@ import { Menu, Search, Bell, User, Settings as SettingsIcon, LogOut, Sun, Moon, 
 import { useTaskContext } from "../../context/TaskContext";
 import "./Header.css";
 
+// react.fc faz com que o componente seja tipado como um componente funcional do React
+
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState<boolean>(false);
