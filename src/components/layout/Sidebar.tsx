@@ -1,83 +1,96 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { 
-  Home, 
-  CheckSquare, 
-  BarChart3, 
-  Settings, 
-  Plus,
-  Calendar,
-  Clock,
-  AlertTriangle
-} from 'lucide-react';
-import { useTaskContext } from '../../context/TaskContext';
-import './Sidebar.css';
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Home, CheckSquare, BarChart3, Settings, Plus, Calendar, Clock, AlertTriangle } from "lucide-react";
+import { useTaskContext } from "../../context/TaskContext";
+import "./Sidebar.css";
+import { LucideIcon } from "lucide-react";
+
+type NavigationItem = {
+  path: string;
+  icon: LucideIcon;
+  label: string;
+  badge: number | null;
+};
+
+type QuickAction = {
+  path: string;
+  icon: LucideIcon;
+  label: string;
+  variant: string;
+};
+
+type QuickStat = {
+  icon: LucideIcon;
+  label: string;
+  value: number;
+  color: string;
+};
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const location = useLocation();
-  const { stats } = useTaskContext();
+  const { stats = { total: 0, pending: 0, overdue: 0, dueSoon: 0 } } = useTaskContext();
 
-  const navigationItems = [
+  const navigationItems: NavigationItem[] = [
     {
-      path: '/',
+      path: "/",
       icon: Home,
-      label: 'Dashboard',
-      badge: null
+      label: "Dashboard",
+      badge: null,
     },
     {
-      path: '/tasks',
+      path: "/tasks",
       icon: CheckSquare,
-      label: 'Tasks',
-      badge: stats.total
+      label: "Tasks",
+      badge: stats.total,
     },
     {
-      path: '/analytics',
+      path: "/analytics",
       icon: BarChart3,
-      label: 'Analytics',
-      badge: null
+      label: "Analytics",
+      badge: null,
     },
     {
-      path: '/settings',
+      path: "/settings",
       icon: Settings,
-      label: 'Settings',
-      badge: null
-    }
+      label: "Settings",
+      badge: null,
+    },
   ];
 
-  const quickActions = [
+  const quickActions: QuickAction[] = [
     {
-      path: '/tasks/new',
+      path: "/tasks/new",
       icon: Plus,
-      label: 'New Task',
-      variant: 'primary'
-    }
+      label: "New Task",
+      variant: "primary",
+    },
   ];
 
-  const quickStats = [
+  const quickStats: QuickStat[] = [
     {
       icon: Clock,
-      label: 'Pending',
+      label: "Pending",
       value: stats.pending,
-      color: 'warning'
+      color: "warning",
     },
     {
       icon: AlertTriangle,
-      label: 'Overdue',
+      label: "Overdue",
       value: stats.overdue,
-      color: 'danger'
+      color: "danger",
     },
     {
       icon: Calendar,
-      label: 'Due Soon',
+      label: "Due Soon",
       value: stats.dueSoon,
-      color: 'info'
-    }
+      color: "info",
+    },
   ];
 
-  const isActive = (path) => {
-    if (path === '/') {
-      return location.pathname === '/';
+  const isActive = (path: string): boolean => {
+    if (path === "/") {
+      return location.pathname === "/";
     }
     return location.pathname.startsWith(path);
   };
@@ -87,15 +100,11 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
+    <aside className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
       <div className="sidebar-content">
         <div className="sidebar-header">
-          <button 
-            className="collapse-toggle"
-            onClick={toggleCollapse}
-            aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          >
-            <div className={`hamburger ${isCollapsed ? 'collapsed' : ''}`}>
+          <button className="collapse-toggle" onClick={toggleCollapse} aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}>
+            <div className={`hamburger ${isCollapsed ? "collapsed" : ""}`}>
               <span></span>
               <span></span>
               <span></span>
@@ -109,15 +118,10 @@ const Sidebar = () => {
             <ul className="nav-list">
               {navigationItems.map((item) => (
                 <li key={item.path}>
-                  <Link 
-                    to={item.path} 
-                    className={`nav-item ${isActive(item.path) ? 'active' : ''}`}
-                  >
+                  <Link to={item.path} className={`nav-item ${isActive(item.path) ? "active" : ""}`}>
                     <item.icon size={20} />
                     <span className="nav-label">{item.label}</span>
-                    {item.badge && (
-                      <span className="nav-badge">{item.badge}</span>
-                    )}
+                    {item.badge && <span className="nav-badge">{item.badge}</span>}
                   </Link>
                 </li>
               ))}
@@ -129,10 +133,7 @@ const Sidebar = () => {
             <ul className="nav-list">
               {quickActions.map((item) => (
                 <li key={item.path}>
-                  <Link 
-                    to={item.path} 
-                    className={`nav-item ${item.variant}`}
-                  >
+                  <Link to={item.path} className={`nav-item ${item.variant}`}>
                     <item.icon size={20} />
                     <span className="nav-label">{item.label}</span>
                   </Link>
@@ -173,4 +174,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar; 
+export default Sidebar;
