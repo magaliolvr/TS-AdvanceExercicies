@@ -1,16 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import {
-  Menu,
-  Search,
-  Bell,
-  User,
-  Settings as SettingsIcon,
-  LogOut,
-  Sun,
-  Moon,
-  BarChart3 as AnalyticsIcon, // corrigi aqui para usar um ícone válido
-} from "lucide-react";
+import { Menu, Search, Bell, User, Settings as SettingsIcon, LogOut, Sun, Moon, BarChart3 as AnalyticsIcon } from "lucide-react";
 import { useTaskContext } from "../../context/TaskContext";
 import "./Header.css";
 
